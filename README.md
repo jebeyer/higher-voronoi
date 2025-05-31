@@ -1,5 +1,5 @@
 # higher-voronoi
 
-spherical bicolored higher ordered voronoi diagrams
+A demo application showing order-k spherical bicolored Vornoi diagrams. 
 
 [https://jebeyer.github.io/higher-voronoi/index.html](https://jebeyer.github.io/higher-voronoi/index.html)
