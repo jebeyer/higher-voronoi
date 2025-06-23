@@ -383,6 +383,7 @@ const setDots = () => {
     let tmpDot;
     const dotGeom = new THREE.SphereGeometry(0.7, 12, 12);
     const dotMat = new THREE.MeshPhongMaterial({color: 0x112211});
+	dotMat.transparent = false;
 
 	let tmpPos = new THREE.Vector3();
 	tmpPos.x = (Math.random()*2)-1;
@@ -394,10 +395,11 @@ const setDots = () => {
 	tmpDot = new dot(dotGeom, dotMat);
 	tmpDot.position.copy(tmpPos);
 	dots.push(tmpDot);
+	scene1.add(tmpDot);
 
     for (let i = 1; i < maxDots; i++) {
 		let minDist = 0.0;
-		let j=0;
+		let j = 0;
 		do {
 			tmpPos.x = (Math.random()*2)-1;
 			tmpPos.y = (Math.random()*2)-1;
@@ -406,7 +408,7 @@ const setDots = () => {
 			tmpPos.setLength(20);
 
 			let distancesD = [];
-			for (let ii=0; ii<dots.length; ii++) {
+			for (let ii = 0; ii < dots.length; ii++) {
 				const tmpDistD = tmpPos.distanceToSquared(dots[ii].position);
 				distancesD.push(tmpDistD);
 			}
@@ -415,19 +417,19 @@ const setDots = () => {
 			j++;
 		} while (minDist < 15.0 && j<20); 
 
-		dotMat.transparent = false;
 		tmpDot = new dot(dotGeom, dotMat);
 		dots.push(tmpDot);
 		
 		tmpDot.position.copy(tmpPos);
 		scene1.add(tmpDot);
-
-		if (i< numDots) {
-			tmpDot.visible = true;
-		} else {
-			tmpDot.visible = false;
-		}
     }
+	for (let k = 0; k < dots.length; k++) { 
+		if (k < numDots) {
+			dots[k].visible = true;
+		} else {
+			dots[k].visible = false;
+		}
+	}
 }
 
 const setVertices = () => {
