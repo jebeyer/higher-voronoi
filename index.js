@@ -37,6 +37,7 @@ let	sphVertexColor2 = 0xffc800;
 let	sphEdgeColor = 0xd85ac7;
 let vertexRadius = 21.0;
 let graphVisible = true;
+let verticesVisible = true;
 let numDots = 6;
 let maxDots = 9;
 let maxVoronoiOrder = 5;
@@ -243,12 +244,12 @@ class vertexPair {
 	}
 	setDisplay() {
 		if (this.visible && graphVisible) {
-			if (vertices[this.v1].visible) {
+			if (vertices[this.v1].visible && verticesVisible) {
 				vertices[this.v1].material.opacity = 1.0;
 			} else {
 				vertices[this.v1].material.opacity = 0.0;
 			}
-			if (vertices[this.v2].visible) {
+			if (vertices[this.v2].visible && verticesVisible) {
 				vertices[this.v2].material.opacity = 1.0;
 			} else {
 				vertices[this.v2].material.opacity = 0.0;
@@ -634,7 +635,7 @@ const setGraph = () => {
 }
 
 const updateVertices = () => {
-	
+
 	for (let i=0; i<vertexPairs.length; i++) {
 		
 		let dot1 = vertexPairs[i].planeDots[0];
@@ -800,6 +801,7 @@ const guiObj = {
 	dotColor: 0x112211,
 	VoronoiOrder: 3,
 	displayGraph: true,
+	displayVertices: true,
 	graphScale: 1.05,
 	vertexColor1: 0x5ac3d8,
 	vertexColor2: 0xffc800,
@@ -872,6 +874,10 @@ VO.onChange( value => {
 } );
 graphFolder.add(guiObj, 'displayGraph').onChange( value => {
 	graphVisible = value;
+	updateGraph();
+} );
+graphFolder.add(guiObj, 'displayVertices').onChange( value => {
+	verticesVisible = value;
 	updateGraph();
 } );
 graphFolder.add(guiObj, 'graphScale', 1.0, 2.0).onChange( value => {
