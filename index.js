@@ -39,7 +39,7 @@ let vertexRadius = 21.0;
 let graphVisible = true;
 let numDots = 6;
 let maxDots = 9;
-let maxVoronoiOrder = 4;
+let maxVoronoiOrder = 5;
 let currVoronoiOrder = 3;
 
 const gui = new GUI();
@@ -819,7 +819,8 @@ gui.addColor(guiObj, 'backgroundColor').onChange( value => {
 } );
 const dotFolder = gui.addFolder( 'dots' );
 dotFolder.add(guiObj, 'numberOfDots', 4, maxDots, 1).onChange (value => {
-	maxVoronoiOrder = Math.floor(value/2);
+	//maxVoronoiOrder = Math.floor(value/2);
+	maxVoronoiOrder = value - 1;
 	VO.max(maxVoronoiOrder);
 	if(VO.getValue() > maxVoronoiOrder) VO.setValue(maxVoronoiOrder);
 	VO.updateDisplay();
@@ -864,7 +865,7 @@ dotFolder.addColor(guiObj, 'dotColor').onChange( value => {
 	}
 } );
 const graphFolder = gui.addFolder( 'sphebic Voronoi graph' );
-const VO = graphFolder.add(guiObj, 'VoronoiOrder', 2, 3, 1);
+const VO = graphFolder.add(guiObj, 'VoronoiOrder', 1, maxVoronoiOrder, 1);
 VO.onChange( value => {
 	currVoronoiOrder = value;
 	updateGraph();
